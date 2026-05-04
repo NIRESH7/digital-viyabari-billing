@@ -1,0 +1,17 @@
+{
+  "name": "Invoicer - Professional Invoice Management",
+  "short_name": "Invoicer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#6366f1",
+  "description": "Multi-tenant invoice management system with PDF generation and sharing.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1041/1041916.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
