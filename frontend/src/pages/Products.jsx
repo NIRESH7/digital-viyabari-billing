@@ -20,7 +20,7 @@ const Products = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/products');
+      const response = await axios.get('http://3.86.4.100/api/products');
       setProducts(response.data);
     } catch (err) { 
       console.error(err); 
@@ -35,9 +35,9 @@ const Products = () => {
     e.preventDefault();
     try {
       if (editingId) {
-        await axios.put(`http://localhost:8000/products/${editingId}`, newProduct);
+        await axios.put(`http://3.86.4.100/api/products/${editingId}`, newProduct);
       } else {
-        await axios.post('http://localhost:8000/products', newProduct);
+        await axios.post('http://3.86.4.100/api/products', newProduct);
       }
       closeModal();
       fetchProducts();
@@ -67,7 +67,7 @@ const Products = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this product? This action cannot be undone.')) return;
     try {
-      await axios.delete(`http://localhost:8000/products/${id}`);
+      await axios.delete(`http://3.86.4.100/api/products/${id}`);
       fetchProducts();
     } catch (err) {
       alert('Error deleting product');

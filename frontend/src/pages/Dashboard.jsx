@@ -290,10 +290,10 @@ const Dashboard = ({ user }) => {
   const fetchMainStats = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/dashboard/stats');
+      const response = await axios.get('http://3.86.4.100/api/dashboard/stats');
       setStats(response.data);
       
-      const invResponse = await axios.get('http://localhost:8000/invoices');
+      const invResponse = await axios.get('http://3.86.4.100/api/invoices');
       setAllInvoices(invResponse.data);
     } catch (err) {
       console.error('Failed to fetch stats', err);
@@ -304,7 +304,7 @@ const Dashboard = ({ user }) => {
 
   const fetchUserDetails = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:8000/dashboard/stats?target_user_id=${userId}`);
+      const response = await axios.get(`http://3.86.4.100/api/dashboard/stats?target_user_id=${userId}`);
       setUserStats(response.data);
       setSelectedUser(userId);
     } catch (err) {

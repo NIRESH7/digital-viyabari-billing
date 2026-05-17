@@ -32,7 +32,7 @@ const Invoices = ({ user }) => {
 
   const fetchInvoices = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/invoices');
+      const response = await axios.get('http://3.86.4.100/api/invoices');
       setInvoices(response.data);
     } catch (err) { 
       console.error(err); 
@@ -41,7 +41,7 @@ const Invoices = ({ user }) => {
 
   const fetchClients = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/clients');
+      const response = await axios.get('http://3.86.4.100/api/clients');
       setClients(response.data);
     } catch (err) {
       console.error("Failed to fetch clients:", err);
@@ -55,7 +55,7 @@ const Invoices = ({ user }) => {
 
   const handleDownload = async (id, number) => {
     try {
-      const response = await axios.get(`http://localhost:8000/invoices/${id}/pdf`, { responseType: 'blob' });
+      const response = await axios.get(`http://3.86.4.100/api/invoices/${id}/pdf`, { responseType: 'blob' });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
@@ -71,7 +71,7 @@ const Invoices = ({ user }) => {
     try {
       const inv = invoices.find(i => i.id === id);
       setSelectedInv(inv);
-      const response = await axios.get(`http://localhost:8000/invoices/${id}/pdf`, { responseType: 'blob' });
+      const response = await axios.get(`http://3.86.4.100/api/invoices/${id}/pdf`, { responseType: 'blob' });
       const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
       setPreviewUrl(url);
       setShowPreview(true);
@@ -82,7 +82,7 @@ const Invoices = ({ user }) => {
 
   const handleShare = async (id, number) => {
     try {
-      const response = await axios.get(`http://localhost:8000/invoices/${id}/pdf`, { responseType: 'blob' });
+      const response = await axios.get(`http://3.86.4.100/api/invoices/${id}/pdf`, { responseType: 'blob' });
       const file = new File([response.data], `INV_${number}.pdf`, { type: 'application/pdf' });
       if (navigator.share) {
         await navigator.share({ files: [file], title: `INV ${number}` });
@@ -120,7 +120,7 @@ const Invoices = ({ user }) => {
         }))
       };
 
-      await axios.post('http://localhost:8000/invoices', payload, {
+      await axios.post('http://3.86.4.100/api/invoices', payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -213,7 +213,7 @@ const Invoices = ({ user }) => {
     const currentStatus = (inv.status || 'UNPAID').toUpperCase();
     const newStatus = currentStatus === 'PAID' ? 'UNPAID' : 'PAID';
     try {
-      await axios.patch(`http://localhost:8000/invoices/${inv.id}/status`, { status: newStatus });
+      await axios.patch(`http://3.86.4.100/api/invoices/${inv.id}/status`, { status: newStatus });
       fetchInvoices();
     } catch (err) { 
       alert('Failed to update status');

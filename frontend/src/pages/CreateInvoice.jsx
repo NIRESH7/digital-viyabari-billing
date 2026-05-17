@@ -61,10 +61,10 @@ const CreateInvoice = ({ user }) => {
     const fetchData = async () => {
       try {
         const [cRes, pRes, iRes, nextNumRes] = await Promise.all([
-          axios.get('http://localhost:8000/clients'),
-          axios.get('http://localhost:8000/products'),
-          axios.get('http://localhost:8000/invoices'),
-          axios.get('http://localhost:8000/invoices/next-number').catch(() => null)
+          axios.get('http://3.86.4.100/api/clients'),
+          axios.get('http://3.86.4.100/api/products'),
+          axios.get('http://3.86.4.100/api/invoices'),
+          axios.get('http://3.86.4.100/api/invoices/next-number').catch(() => null)
         ]);
         setClients(cRes.data);
         setProducts(pRes.data);
@@ -174,7 +174,7 @@ const CreateInvoice = ({ user }) => {
     e.preventDefault();
     const payload = { ...newClient };
     if (whatsappSameAsPhone) payload.whatsapp = payload.mobile;
-    const res = await axios.post('http://localhost:8000/clients', payload);
+    const res = await axios.post('http://3.86.4.100/api/clients', payload);
     setClients([...clients, res.data]);
     setInvoice({...invoice, client_id: res.data.id});
     setShowClientModal(false);
@@ -195,7 +195,7 @@ const CreateInvoice = ({ user }) => {
         gst_percent: parseFloat(newProduct.gst_percent) || 0,
         stock: parseInt(newProduct.stock) || 0
       };
-      const res = await axios.post('http://localhost:8000/products', payload);
+      const res = await axios.post('http://3.86.4.100/api/products', payload);
       
       const updatedProductsList = [...products, res.data];
       setProducts(updatedProductsList);
@@ -259,12 +259,12 @@ const CreateInvoice = ({ user }) => {
       };
       let res;
       if (invoiceId) {
-        res = await axios.put(`http://localhost:8000/invoices/${invoiceId}`, data);
+        res = await axios.put(`http://3.86.4.100/api/invoices/${invoiceId}`, data);
       } else {
-        res = await axios.post('http://localhost:8000/invoices', data);
+        res = await axios.post('http://3.86.4.100/api/invoices', data);
       }
       
-      const pdfRes = await axios.get(`http://localhost:8000/invoices/${res.data.id}/pdf?t=${Date.now()}`, { responseType: 'blob' });
+      const pdfRes = await axios.get(`http://3.86.4.100/api/invoices/${res.data.id}/pdf?t=${Date.now()}`, { responseType: 'blob' });
       const url = window.URL.createObjectURL(new Blob([pdfRes.data], { type: 'application/pdf' }));
       
       setGeneratedId(res.data.id);
@@ -274,7 +274,7 @@ const CreateInvoice = ({ user }) => {
 
       if (!invoiceId) {
         // Fetch the next invoice number and reset form state for a fresh invoice entry
-        const nextNumRes = await axios.get('http://localhost:8000/invoices/next-number').catch(() => null);
+        const nextNumRes = await axios.get('http://3.86.4.100/api/invoices/next-number').catch(() => null);
         const nextInvNum = (nextNumRes && nextNumRes.data && nextNumRes.data.next_invoice_number) 
           ? nextNumRes.data.next_invoice_number 
           : `INV-${Date.now().toString().slice(-4)}`;

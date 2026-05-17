@@ -61,7 +61,7 @@ const SettingsPage = ({ fetchCompanyGlobal }) => {
   const fetchCompany = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8000/company', {
+      const response = await axios.get('http://3.86.4.100/api/company', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data) {
@@ -85,7 +85,7 @@ const SettingsPage = ({ fetchCompanyGlobal }) => {
     try {
       const token = localStorage.getItem('token');
       const endpoint = type === 'logo' ? 'logo' : 'signature';
-      const response = await axios.post(`http://localhost:8000/company/${endpoint}`, formData, {
+      const response = await axios.post(`http://3.86.4.100/api/company/${endpoint}`, formData, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -112,7 +112,7 @@ const SettingsPage = ({ fetchCompanyGlobal }) => {
     try {
       const token = localStorage.getItem('token');
       const { id, user_id, _id, ...profileData } = company;
-      await axios.post('http://localhost:8000/company', profileData, {
+      await axios.post('http://3.86.4.100/api/company', profileData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (fetchCompanyGlobal) fetchCompanyGlobal();

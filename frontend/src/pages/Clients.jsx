@@ -22,8 +22,8 @@ const Clients = () => {
   const fetchClients = async () => {
     try {
       const [cRes, iRes] = await Promise.all([
-        axios.get('http://localhost:8000/clients'),
-        axios.get('http://localhost:8000/invoices')
+        axios.get('http://3.86.4.100/api/clients'),
+        axios.get('http://3.86.4.100/api/invoices')
       ]);
       setClients(cRes.data);
       setInvoices(iRes.data);
@@ -43,9 +43,9 @@ const Clients = () => {
       if (whatsappSameAsPhone) payload.whatsapp = payload.mobile;
       
       if (editingId) {
-        await axios.put(`http://localhost:8000/clients/${editingId}`, payload);
+        await axios.put(`http://3.86.4.100/api/clients/${editingId}`, payload);
       } else {
-        await axios.post('http://localhost:8000/clients', payload);
+        await axios.post('http://3.86.4.100/api/clients', payload);
       }
       
       closeModal();
@@ -75,7 +75,7 @@ const Clients = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this customer? This action cannot be undone.')) return;
     try {
-      await axios.delete(`http://localhost:8000/clients/${id}`);
+      await axios.delete(`http://3.86.4.100/api/clients/${id}`);
       fetchClients();
     } catch (err) {
       alert('Error deleting client');

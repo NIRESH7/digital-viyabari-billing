@@ -321,7 +321,7 @@ const App = () => {
   const fetchCompany = async () => {
     if (!token) return;
     try {
-      const res = await axios.get('http://localhost:8000/company');
+      const res = await axios.get('http://3.86.4.100/api/company');
       setCompany(res.data);
       setLogoVersion(Date.now());
     } catch (err) { console.error(err); }

@@ -24,7 +24,7 @@ const Login = ({ login }) => {
       const formData = new FormData();
       formData.append('username', email);
       formData.append('password', password);
-      const response = await axios.post('http://localhost:8000/auth/login', formData);
+      const response = await axios.post('http://3.86.4.100/api/auth/login', formData);
       login(response.data.user, response.data.access_token);
     } catch (err) {
       setError('Invalid email or password.');

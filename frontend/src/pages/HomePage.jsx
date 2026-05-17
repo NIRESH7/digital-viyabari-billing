@@ -37,7 +37,7 @@ const HomePage = ({ user, logout }) => {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/dashboard/stats')
+    axios.get('http://3.86.4.100/api/dashboard/stats')
       .then(res => setStats(res.data))
       .catch(err => console.error(err));
   }, []);
